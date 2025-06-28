@@ -1,0 +1,68 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@example.com",
+      "password": "admin123",
+      "name": "Admin User",
+      "role": "admin",
+      "avatar": "https://via.placeholder.com/150/4CAF50/FFFFFF?text=A"
+    },
+    {
+      "id": 2,
+      "email": "user@example.com",
+      "password": "user123",
+      "name": "Regular User",
+      "role": "user",
+      "avatar": "https://via.placeholder.com/150/2196F3/FFFFFF?text=U"
+    },
+    {
+      "id": 3,
+      "email": "manager@example.com",
+      "password": "manager123",
+      "name": "Manager User",
+      "role": "manager",
+      "avatar": "https://via.placeholder.com/150/FF9800/FFFFFF?text=M"
+    }
+  ],
+  "portfolios": [
+    {
+      "id": 1,
+      "userId": 1,
+      "name": "Tech Portfolio",
+      "description": "Technology focused investments",
+      "totalValue": 50000,
+      "createdAt": "2024-01-15T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "name": "Growth Portfolio",
+      "description": "Growth oriented investments",
+      "totalValue": 25000,
+      "createdAt": "2024-02-20T14:30:00Z"
+    }
+  ],
+  "investments": [
+    {
+      "id": 1,
+      "portfolioId": 1,
+      "symbol": "AAPL",
+      "name": "Apple Inc.",
+      "quantity": 10,
+      "purchasePrice": 150.00,
+      "currentPrice": 175.50,
+      "purchaseDate": "2024-01-15T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "portfolioId": 1,
+      "symbol": "GOOGL",
+      "name": "Alphabet Inc.",
+      "quantity": 5,
+      "purchasePrice": 2800.00,
+      "currentPrice": 2950.00,
+      "purchaseDate": "2024-01-20T11:00:00Z"
+    }
+  ]
+} 
