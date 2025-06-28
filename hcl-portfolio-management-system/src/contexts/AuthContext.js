@@ -15,19 +15,30 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  axios.defaults.baseURL = 'http://localhost:3000';
+  axios.defaults.baseURL = 'http://localhost:3001';
 
   const login = async (email, password) => {
     try {
+      console.log('Login attempt with:', { email, password });
       setLoading(true);
+      
       const response = await axios.get(`/users?email=${email}`);
-      console.log(response.data);
+      console.log('API Response:', response.data);
+      
       const user = response.data[0];
+      console.log('Found user:', user);
 
-      if (!user || user.password !== password) {
-        throw new Error('Invalid credentials');
+      if (!user) {
+        console.log('No user found with email:', email);
+        throw new Error('User not found');
       }
 
+      if (user.password !== password) {
+        console.log('Password mismatch. Expected:', user.password, 'Got:', password);
+        throw new Error('Invalid password');
+      }
+
+      console.log('Login successful, setting user:', user);
       setUser({
         id: user.id,
         email: user.email,
