@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  axios.defaults.baseURL = 'http://localhost:3001';
+  axios.defaults.baseURL = 'http://localhost:3000';
 
   const login = async (email, password) => {
     try {
