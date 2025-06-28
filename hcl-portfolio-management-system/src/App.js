@@ -1,18 +1,35 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import PortfolioPage from "./pages/portfolioPage"
 
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Dashboard from './pages/Dashboard';
+import ProtectedRoute from './pages/ProtectedRoute';
+import { AuthProvider } from './contexts/AuthContext';
+import PortfolioPage from "./pages/portfolioPage"
 
 function App() {
   return (
-    <Router>
-      <div style={{ padding: "20px" }}>
+    <AuthProvider>
+      <Router>
         <Routes>
-          <Route path="/" element={<PortfolioPage />} />
-          <Route path="/orders/:id" element={<PortfolioPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          
+          />
+            <Route path="/" element={<PortfolioPage />} />
+            <Route path="/orders/:id" element={<PortfolioPage />} />
+          <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
-      </div>
-    </Router>
+      </Router>
+    </AuthProvider>
   );
 }
 
