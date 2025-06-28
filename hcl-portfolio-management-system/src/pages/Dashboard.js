@@ -207,24 +207,6 @@ export default function Dashboard() {
             <PortfolioPerformanceChart />
           </Grid>
         </Grid>
-
-        {/* User Role Badge */}
-        <Box sx={{
-          display: 'inline-block',
-          p: 2,
-          backgroundColor: user.role === 'admin' ? '#ffebee' : user.role === 'manager' ? '#fff3e0' : '#e8f5e8',
-          borderRadius: 2,
-          border: `1px solid ${user.role === 'admin' ? '#ffcdd2' : user.role === 'manager' ? '#ffe0b2' : '#c8e6c9'}`,
-          mt: 3
-        }}>
-          <Typography variant="body2" sx={{
-            color: user.role === 'admin' ? '#c62828' : user.role === 'manager' ? '#ef6c00' : '#2e7d32',
-            fontWeight: 'bold',
-            textTransform: 'uppercase'
-          }}>
-            Role: {user.role}
-          </Typography>
-        </Box>
       </Container>
     </Box>
   );
