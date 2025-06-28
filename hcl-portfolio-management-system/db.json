@@ -3,6 +3,7 @@
       {
         "id": 1,
         "asset_id": "T1",
+        "asset_name":"TATA",
         "order_ref_no": "11",
         "order_status": true,
         "txn_type": "buy",
@@ -13,6 +14,7 @@
       {
         "id": 2,
         "asset_id": "T2",
+        "asset_name":"WIPRO",
         "order_ref_no": "21",
         "order_status": true,
         "txn_type": "Sell",
