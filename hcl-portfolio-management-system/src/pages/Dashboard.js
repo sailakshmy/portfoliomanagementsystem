@@ -10,7 +10,8 @@ import {
   IconButton,
   Menu,
   MenuItem,
-  Divider
+  Divider,
+  Grid
 } from '@mui/material';
 import { 
   AccountCircle, 
@@ -21,6 +22,7 @@ import {
 } from '@mui/icons-material';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import PortfolioPerformanceChart from '../components/PortfolioPerformanceChart';
 
 export default function Dashboard() {
   const { user, logout } = useAuth();
@@ -143,55 +145,67 @@ export default function Dashboard() {
         </Box>
 
         {/* Quick Stats Cards */}
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' }, gap: 3, mb: 4 }}>
-          <Box sx={{ 
-            p: 3, 
-            backgroundColor: '#e3f2fd', 
-            borderRadius: 2, 
-            border: '1px solid #bbdefb',
-            textAlign: 'center'
-          }}>
-            {/* <PortfolioIcon sx={{ fontSize: 40, color: '#1976d2', mb: 1 }} /> */}
-            <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>
-              3
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Active Portfolios
-            </Typography>
-          </Box>
+        <Grid container spacing={3} sx={{ mb: 4 }}>
+          <Grid item xs={12} md={4}>
+            <Box sx={{ 
+              p: 3, 
+              backgroundColor: '#e3f2fd', 
+              borderRadius: 2, 
+              border: '1px solid #bbdefb',
+              textAlign: 'center'
+            }}>
+              <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>
+                3
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Active Portfolios
+              </Typography>
+            </Box>
+          </Grid>
 
-          <Box sx={{ 
-            p: 3, 
-            backgroundColor: '#f3e5f5', 
-            borderRadius: 2, 
-            border: '1px solid #e1bee7',
-            textAlign: 'center'
-          }}>
-            <AssessmentIcon sx={{ fontSize: 40, color: '#7b1fa2', mb: 1 }} />
-            <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>
-              $125K
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Total Value
-            </Typography>
-          </Box>
+          <Grid item xs={12} md={4}>
+            <Box sx={{ 
+              p: 3, 
+              backgroundColor: '#f3e5f5', 
+              borderRadius: 2, 
+              border: '1px solid #e1bee7',
+              textAlign: 'center'
+            }}>
+              <AssessmentIcon sx={{ fontSize: 40, color: '#7b1fa2', mb: 1 }} />
+              <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>
+                $125K
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Total Value
+              </Typography>
+            </Box>
+          </Grid>
 
-          <Box sx={{ 
-            p: 3, 
-            backgroundColor: '#e8f5e8', 
-            borderRadius: 2, 
-            border: '1px solid #c8e6c9',
-            textAlign: 'center'
-          }}>
-            <DashboardIcon sx={{ fontSize: 40, color: '#388e3c', mb: 1 }} />
-            <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>
-              12.5%
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              YTD Return
-            </Typography>
-          </Box>
-        </Box>
+          <Grid item xs={12} md={4}>
+            <Box sx={{ 
+              p: 3, 
+              backgroundColor: '#e8f5e8', 
+              borderRadius: 2, 
+              border: '1px solid #c8e6c9',
+              textAlign: 'center'
+            }}>
+              <DashboardIcon sx={{ fontSize: 40, color: '#388e3c', mb: 1 }} />
+              <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>
+                12.5%
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                YTD Return
+              </Typography>
+            </Box>
+          </Grid>
+        </Grid>
+
+        {/* Portfolio Performance Chart */}
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <PortfolioPerformanceChart />
+          </Grid>
+        </Grid>
 
         {/* User Role Badge */}
         <Box sx={{ 
@@ -199,7 +213,8 @@ export default function Dashboard() {
           p: 2, 
           backgroundColor: user.role === 'admin' ? '#ffebee' : user.role === 'manager' ? '#fff3e0' : '#e8f5e8',
           borderRadius: 2,
-          border: `1px solid ${user.role === 'admin' ? '#ffcdd2' : user.role === 'manager' ? '#ffe0b2' : '#c8e6c9'}`
+          border: `1px solid ${user.role === 'admin' ? '#ffcdd2' : user.role === 'manager' ? '#ffe0b2' : '#c8e6c9'}`,
+          mt: 3
         }}>
           <Typography variant="body2" sx={{ 
             color: user.role === 'admin' ? '#c62828' : user.role === 'manager' ? '#ef6c00' : '#2e7d32',
