@@ -203,7 +203,7 @@ const PortfolioPerformanceChart = () => {
     switch (chartType) {
       case 'pie':
         return (
-          <Box sx={{ height: isMobile ? 300 : 400, width: '100%' }}>
+          <Box sx={{ height: isMobile ? 300 : 400, width: '100%' }} data-testid="pie-chart-box">
             <Pie data={pieChartData} options={pieChartOptions} />
           </Box>
         );
@@ -259,7 +259,7 @@ const PortfolioPerformanceChart = () => {
         );
       case 'bar':
         return (
-          <Box sx={{ height: isMobile ? 300 : 400, width: '100%' }}>
+          <Box sx={{ height: isMobile ? 300 : 400, width: '100%' }} data-testid="bar-chart-box">
             <Bar data={barChartData} options={barChartOptions} />
           </Box>
         );
