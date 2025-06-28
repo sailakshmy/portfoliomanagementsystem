@@ -1,32 +1,55 @@
 import React, { useEffect, useState } from "react";
-import { DataGrid } from "@mui/x-data-grid";
-import Paper from "@mui/material/Paper";
+import {
+  Paper,
+  Typography,
+  Tabs,
+  Tab,
+  Box,
+  Button,
+} from "@mui/material";
 import axios from "axios";
-import { Typography, Tabs, Tab, Box } from "@mui/material";
-
-const columns = [
-  { field: "id", headerName: "ID", width: 90, type: "number" },
-  { field: "asset_id", headerName: "Asset ID", width: 100 },
-  { field: "order_ref_no", headerName: "Order Ref No", width: 150 },
-  { field: "txn_type", headerName: "Transaction Type", width: 150 },
-  { field: "order_status", headerName: "Order Status", width: 130 },
-  { field: "order_value", headerName: "Order Value", width: 130 },
-  { field: "created_on", headerName: "Created On", width: 150 },
-  { field: "created_by", headerName: "Created By", width: 130 },
-];
-
-const paginationModel = { page: 0, pageSize: 5 };
 
 function PortfolioPage() {
   const [historyData, setHistoryData] = useState([]);
   const [tabValue, setTabValue] = useState(0);
+  const [orderId, setOrderId] = useState("");
+  const [securityName, setSecurityName] = useState("");
 
   useEffect(() => {
     axios
       .get("http://localhost:3001/orders")
       .then((res) => setHistoryData(res.data))
-      .catch((err) => console.error("Error fetching posts:", err));
+      .catch((err) => console.error("Error fetching orders:", err));
   }, []);
+
+  const SearchOrder = () => {
+    let query = "";
+
+    if (orderId.trim() !== "") {
+      query += `id=${orderId}`;
+    }
+    if (securityName.trim() !== "") {
+      if (query !== "") query += "&";
+      query += `asset_id=${securityName}`;
+    }
+
+    // if (orderId && orderId.trim() !== "") {
+    //   axios
+    //     .get(`http://localhost:3001/orders?id=${orderId}`)
+    //     .then((res) => {
+    //       setHistoryData(res.data); // json-server returns array
+    //     })
+    //     .catch((err) => console.error("Error fetching order:", err));
+    // }
+    if (query !== "") {
+      axios
+        .get(`http://localhost:3001/orders?${query}`)
+        .then((res) => {
+          setHistoryData(res.data);
+        })
+        .catch((err) => console.error("Error fetching orders:", err));
+    }
+  };
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
@@ -35,49 +58,90 @@ function PortfolioPage() {
   return (
     <Box sx={{ p: 2 }}>
       {/* Tabs section */}
-      <Tabs value={tabValue} onChange={handleTabChange} aria-label="Portfolio Tabs">
+      <Tabs
+        value={tabValue}
+        onChange={handleTabChange}
+        aria-label="Portfolio Tabs"
+      >
         <Tab label="Orders" />
-        {/* you can add more tabs here later */}
+        <Tab label="Security" />
+        <Tab label="Audit Action" />
       </Tabs>
 
       {/* Heading */}
       <Typography
         variant="h6"
-        component="div"
-        sx={{ mt: 2, mb: 1, fontWeight: "bold" }}
+        sx={{ mt: 2, mb: 2, fontWeight: "bold" }}
       >
         Portfolio Orders
       </Typography>
 
-      {/* Table */}
+      {/* Search Box */}
+      <Box sx={{ display: "flex", gap: 1, mb: 2 }}>
+        <input
+          placeholder="Enter Order Id"
+          value={orderId}
+          onChange={(e) => setOrderId(e.target.value)}
+        />
+         <input
+          placeholder="Enter Security Name"
+          value={securityName}
+          onChange={(e) => setSecurityName(e.target.value)}
+        />
+        <Button
+          variant="contained"
+          onClick={() => SearchOrder()}
+        >
+          Search
+        </Button>
+      </Box>
+
+      {/* Simple Table */}
       <Paper
         elevation={3}
         sx={{
-          height: 400,
           width: "100%",
           p: 1,
           border: "1px solid #ddd",
-          //backgroundColor: "#fafafa"
+          overflowX: "auto",
         }}
       >
-        <DataGrid
-          rows={historyData}
-          columns={columns}
-          initialState={{ pagination: { paginationModel } }}
-          pageSizeOptions={[5, 10]}
-          checkboxSelection
-          sx={{
-            border: "none",
-            "& .MuiDataGrid-columnHeaders": {
-              backgroundColor: "#1976d2",
-              color: "#1976d2",
-              fontWeight: "bold"
-            },
-            "& .MuiDataGrid-row:hover": {
-              backgroundColor: "#f5f5f5"
-            }
-          }}
-        />
+        <table style={{ width: "100%", borderCollapse: "collapse" }}>
+          <thead>
+            <tr style={{ backgroundColor: "#1976d2", color: "white" }}>
+              <th>ID</th>
+              <th>Asset ID</th>
+              <th>Order Ref No</th>
+              <th>Transaction Type</th>
+              <th>Order Status</th>
+              <th>Order Value</th>
+              <th>Created On</th>
+              <th>Created By</th>
+            </tr>
+          </thead>
+          <tbody>
+            {historyData && historyData.length > 0 ? (
+              historyData.map((row) => (
+                <tr key={row.id}>
+                  <td>{row.id}</td>
+                  <td>{row.asset_id}</td>
+                  <td>{row.order_ref_no}</td>
+                  <td>{row.txn_type}</td>
+                  <td>{row.order_status ? "Active" : "Inactive"}</td>
+                  <td>{row.order_value}</td>
+                  <td>{row.created_on}</td>
+                  <td>{row.created_by}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={8} style={{ textAlign: "center" }}>
+                  No data available
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </Paper>
     </Box>
   );

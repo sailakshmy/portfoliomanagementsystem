@@ -9,6 +9,7 @@ function App() {
       <div style={{ padding: "20px" }}>
         <Routes>
           <Route path="/" element={<PortfolioPage />} />
+          <Route path="/orders/:id" element={<PortfolioPage />} />
         </Routes>
       </div>
     </Router>
