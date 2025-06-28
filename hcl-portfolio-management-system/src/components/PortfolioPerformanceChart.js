@@ -33,6 +33,7 @@ import {
   TableChart as TableChartIcon,
   BarChart as BarChartIcon,
 } from '@mui/icons-material';
+import {mockPortfolioData} from '../mocks/mocks'
 
 // Register Chart.js components
 ChartJS.register(
@@ -45,69 +46,7 @@ ChartJS.register(
   ArcElement
 );
 
-// Mock data for the portfolio
-const mockPortfolioData = {
-  assets: [
-    { name: 'Stocks', value: 45000, percentage: 45, color: '#2196F3' },
-    { name: 'Bonds', value: 30000, percentage: 30, color: '#4CAF50' },
-    { name: 'Real Estate', value: 15000, percentage: 15, color: '#FF9800' },
-    { name: 'Cash', value: 10000, percentage: 10, color: '#9C27B0' },
-  ],
-  holdings: [
-    {
-      symbol: 'AAPL',
-      name: 'Apple Inc.',
-      quantity: 100,
-      avgPrice: 150.00,
-      currentPrice: 175.50,
-      marketValue: 17550,
-      gainLoss: 2550,
-      gainLossPercent: 17.0,
-      assetType: 'Stocks',
-    },
-    {
-      symbol: 'GOOGL',
-      name: 'Alphabet Inc.',
-      quantity: 50,
-      avgPrice: 2800.00,
-      currentPrice: 2950.00,
-      marketValue: 147500,
-      gainLoss: 7500,
-      gainLossPercent: 5.36,
-      assetType: 'Stocks',
-    },
-    {
-      symbol: 'MSFT',
-      name: 'Microsoft Corp.',
-      quantity: 75,
-      avgPrice: 300.00,
-      currentPrice: 325.00,
-      marketValue: 24375,
-      gainLoss: 1875,
-      gainLossPercent: 8.33,
-      assetType: 'Stocks',
-    },
-    {
-      symbol: 'BOND-ETF',
-      name: 'Vanguard Total Bond ETF',
-      quantity: 200,
-      avgPrice: 85.00,
-      currentPrice: 87.50,
-      marketValue: 17500,
-      gainLoss: 500,
-      gainLossPercent: 2.94,
-      assetType: 'Bonds',
-    },
-  ],
-  performance: {
-    weekly: {
-      labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7', 'Week 8'],
-      stocks: [2.1, 1.8, -0.5, 3.2, 1.5, -1.2, 2.8, 1.9],
-      bonds: [0.3, 0.2, 0.4, 0.1, 0.3, 0.2, 0.4, 0.3],
-      realEstate: [0.8, 1.2, 0.5, 1.8, 0.9, 0.6, 1.1, 0.8],
-    },
-  },
-};
+
 
 const PortfolioPerformanceChart = () => {
   const [chartType, setChartType] = useState('pie');

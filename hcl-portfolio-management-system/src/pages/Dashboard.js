@@ -1,20 +1,20 @@
 import React from 'react';
-import { 
-  Container, 
-  Typography, 
-  Avatar, 
-  Button, 
-  Box, 
-  AppBar, 
-  Toolbar, 
+import {
+  Container,
+  Typography,
+  Avatar,
+  Button,
+  Box,
+  AppBar,
+  Toolbar,
   IconButton,
   Menu,
   MenuItem,
   Divider,
   Grid
 } from '@mui/material';
-import { 
-  AccountCircle, 
+import {
+  AccountCircle,
   Dashboard as DashboardIcon,
   Assessment as AssessmentIcon,
   Settings as SettingsIcon,
@@ -23,6 +23,7 @@ import {
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import PortfolioPerformanceChart from '../components/PortfolioPerformanceChart';
+import { mockPortfolioData } from '../mocks/mocks'
 
 export default function Dashboard() {
   const { user, logout } = useAuth();
@@ -51,11 +52,11 @@ export default function Dashboard() {
         <Toolbar>
           {/* Logo on the left */}
           <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
-            <Box 
-              sx={{ 
-                width: 40, 
-                height: 40, 
-                backgroundColor: 'white', 
+            <Box
+              sx={{
+                width: 40,
+                height: 40,
+                backgroundColor: 'white',
                 borderRadius: 1,
                 display: 'flex',
                 alignItems: 'center',
@@ -63,10 +64,10 @@ export default function Dashboard() {
                 marginRight: 2
               }}
             >
-              <Typography 
-                variant="h6" 
-                sx={{ 
-                  color: '#1976d2', 
+              <Typography
+                variant="h6"
+                sx={{
+                  color: '#1976d2',
                   fontWeight: 'bold',
                   fontSize: '1.2rem'
                 }}
@@ -92,8 +93,8 @@ export default function Dashboard() {
               onClick={handleMenu}
               sx={{ color: 'white' }}
             >
-              <Avatar 
-                src={user.avatar} 
+              <Avatar
+                src={user.avatar}
                 sx={{ width: 35, height: 35 }}
               >
                 {user.name.charAt(0).toUpperCase()}
@@ -147,54 +148,35 @@ export default function Dashboard() {
         {/* Quick Stats Cards */}
         <Grid container spacing={3} sx={{ mb: 4 }}>
           <Grid item xs={12} md={4}>
-            <Box sx={{ 
-              p: 3, 
-              backgroundColor: '#e3f2fd', 
-              borderRadius: 2, 
+            <Box sx={{
+              p: 3,
+              backgroundColor: '#e3f2fd',
+              borderRadius: 2,
               border: '1px solid #bbdefb',
               textAlign: 'center'
             }}>
               <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>
-                3
+                {mockPortfolioData?.assets?.length}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Active Portfolios
+                Assets
               </Typography>
             </Box>
           </Grid>
-
           <Grid item xs={12} md={4}>
-            <Box sx={{ 
-              p: 3, 
-              backgroundColor: '#f3e5f5', 
-              borderRadius: 2, 
-              border: '1px solid #e1bee7',
-              textAlign: 'center'
-            }}>
-              <AssessmentIcon sx={{ fontSize: 40, color: '#7b1fa2', mb: 1 }} />
-              <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>
-                $125K
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Total Value
-              </Typography>
-            </Box>
-          </Grid>
-
-          <Grid item xs={12} md={4}>
-            <Box sx={{ 
-              p: 3, 
-              backgroundColor: '#e8f5e8', 
-              borderRadius: 2, 
+            <Box sx={{
+              p: 3,
+              backgroundColor: '#e8f5e8',
+              borderRadius: 2,
               border: '1px solid #c8e6c9',
               textAlign: 'center'
             }}>
               <DashboardIcon sx={{ fontSize: 40, color: '#388e3c', mb: 1 }} />
               <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>
-                12.5%
+                {mockPortfolioData?.holdings?.length}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                YTD Return
+                Holdings
               </Typography>
             </Box>
           </Grid>
@@ -208,15 +190,15 @@ export default function Dashboard() {
         </Grid>
 
         {/* User Role Badge */}
-        <Box sx={{ 
-          display: 'inline-block', 
-          p: 2, 
+        <Box sx={{
+          display: 'inline-block',
+          p: 2,
           backgroundColor: user.role === 'admin' ? '#ffebee' : user.role === 'manager' ? '#fff3e0' : '#e8f5e8',
           borderRadius: 2,
           border: `1px solid ${user.role === 'admin' ? '#ffcdd2' : user.role === 'manager' ? '#ffe0b2' : '#c8e6c9'}`,
           mt: 3
         }}>
-          <Typography variant="body2" sx={{ 
+          <Typography variant="body2" sx={{
             color: user.role === 'admin' ? '#c62828' : user.role === 'manager' ? '#ef6c00' : '#2e7d32',
             fontWeight: 'bold',
             textTransform: 'uppercase'
