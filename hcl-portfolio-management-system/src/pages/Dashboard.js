@@ -156,13 +156,32 @@ export default function Dashboard() {
               textAlign: 'center'
             }}>
               <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>
-                {mockPortfolioData?.assets?.length}
+                {mockPortfolioData?.assets?.length ?? 0}
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 Assets
               </Typography>
             </Box>
           </Grid>
+
+          <Grid item xs={12} md={4}>
+            <Box sx={{
+              p: 3,
+              backgroundColor: '#f3e5f5',
+              borderRadius: 2,
+              border: '1px solid #e1bee7',
+              textAlign: 'center'
+            }}>
+              <AssessmentIcon sx={{ fontSize: 40, color: '#7b1fa2', mb: 1 }} />
+              <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>
+                ${(mockPortfolioData?.assets?.reduce((sum, asset) => sum + asset.value, 0) ?? 0).toLocaleString()}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Total Value
+              </Typography>
+            </Box>
+          </Grid>
+
           <Grid item xs={12} md={4}>
             <Box sx={{
               p: 3,
@@ -173,7 +192,7 @@ export default function Dashboard() {
             }}>
               <DashboardIcon sx={{ fontSize: 40, color: '#388e3c', mb: 1 }} />
               <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>
-                {mockPortfolioData?.holdings?.length}
+                {mockPortfolioData?.holdings?.length ?? 0}
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 Holdings
